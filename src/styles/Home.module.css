@@ -1,0 +1,62 @@
+/* Main Container */
+.container {
+  padding: 40px 20px;
+  background-color: #F8FAFC;
+}
+
+/* Section Container */
+.seccontainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Section Styles */
+.animeSection {
+  margin-top: 20px;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+}
+
+/* Main Heading */
+.heading {
+  font-size: 32px;
+  font-weight: bold;
+  color: #e67e22;
+  text-align: center;
+  text-shadow: 0px 0px 8px rgba(230, 126, 34, 0.4);
+  margin-bottom: 20px;
+}
+
+/* Section Heading */
+.animeSection h2 {
+  font-size: 24px;
+  color: #e74c3c;
+  margin-bottom: 15px;
+  text-align: center;
+  text-shadow: 0px 0px 6px rgba(231, 76, 60, 0.4);
+}
+
+/* Anime Grid Layout */
+.animeRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .animeRow {
+    grid-template-columns: repeat(2, 1fr);
+    /* Show 2 cards per row */
+  }
+}
+
+@media (max-width: 480px) {
+  .animeRow {
+    grid-template-columns: 1fr;
+    /* Switch to single column for small screens */
+  }
+}

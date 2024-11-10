@@ -1,0 +1,125 @@
+/* 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    background: linear-gradient(to right, #ff4081, #e91e63); 
+    padding: 1.5rem 2rem;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 0;
+    color: #fff;
+    text-transform: none;
+  }
+  
+  .searchWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .searchInput {
+    border-radius: 25px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    width: 250px;
+    padding: 10px 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .searchInput:focus {
+    outline: none;
+    background-color: white;
+    width: 300px;
+    border-color: #ff4081; 
+  } */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px; /* Increased height for better spacing */
+    background: linear-gradient(to right, #ff4081, #e91e63); 
+    padding: 1.5rem 2rem;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Added gap between the two headings */
+  }
+  
+  .heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 0;
+    color: #fff;
+    text-transform: none;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none; 
+  }
+  
+  .heading:hover {
+    color: #055409; 
+  }
+  
+  .searchWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .searchInput {
+    border-radius: 25px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    width: 250px;
+    padding: 10px 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .searchInput:focus {
+    outline: none;
+    background-color: white;
+    width: 300px;
+    border-color: #ff4081; /* Border color change on focus */
+  }
+  
+  /* Styles for the 'Recommend' link */
+  .recommendLink {
+    font-size: 1.5rem; /* Smaller font size */
+    font-weight: normal; /* Normal font weight */
+    color: #fff; /* Normal color */
+    text-decoration: none; /* Remove the underline */
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .recommendLink:hover {
+    color: #055409; 
+
+  }
+  
