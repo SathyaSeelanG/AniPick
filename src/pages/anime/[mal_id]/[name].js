@@ -18,7 +18,7 @@ export async function getServerSideProps({ params }) {
 export default function AnimeDetails({ animeDetails }) {
   return (
     <>
-      <Layout>
+      <Layout title={`${animeDetails.title} | AniPick`}>
         <div className={styles.container}>
           <div className={styles.imageSection}>
             <Image

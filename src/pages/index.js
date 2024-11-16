@@ -1,8 +1,8 @@
 import axios from "axios";
 import AnimeCard from "../components/AnimeCard";
 import styles from "../styles/Home.module.css";
-import Header from "../components/Header";
 import Layout from "../components/Layout";
+import Link from "next/link";
 
 async function fetchWithRetry(url, retries = 3, delay = 1000) {
   for (let i = 0; i < retries; i++) {
@@ -27,7 +27,6 @@ export async function getServerSideProps() {
     "https://api.jikan.moe/v4/top/anime?filter=bypopularity"
   );
   const topAnime = await fetchWithRetry("https://api.jikan.moe/v4/top/anime");
-  //   console.log("topanime", topAnime);
   const airingAnime = await fetchWithRetry(
     "https://api.jikan.moe/v4/top/anime?filter=airing"
   );
@@ -48,48 +47,66 @@ export default function Home({
   airingAnime,
 }) {
   return (
-    <>
-      {/* <Header /> */}
-      <Layout>
-        <div className={styles.container}>
-          {/* <h1 className={styles.heading}>Anime Recommendations</h1> */}
-          <div className={styles.seccontainer}>
-            <section className={styles.animeSection}>
+    <Layout title="AniPick | Anime Recommendations">
+      <div className={styles.container}>
+        <div className={styles.seccontainer}>
+          <section className={styles.animeSection}>
+            <div className={styles.sectionHeader}>
               <h2>Top of the Week</h2>
-              <div className={styles.animeRow}>
-                {topAnime.map((anime) => (
-                  <AnimeCard key={anime.mal_id} anime={anime} />
-                ))}
-              </div>
-            </section>
-            <section className={styles.animeSection}>
-              <h2>Currrent Airing </h2>
-              <div className={styles.animeRow}>
-                {airingAnime.map((anime) => (
-                  <AnimeCard key={anime.mal_id} anime={anime} />
-                ))}
-              </div>
-            </section>
-            <section className={styles.animeSection}>
-              <h2>Upcoming </h2>
-              <div className={styles.animeRow}>
-                {upcomingAnime.map((anime) => (
-                  <AnimeCard key={anime.mal_id} anime={anime} />
-                ))}
-              </div>
-            </section>
+              <Link href="/top-anime">
+                <button className={styles.viewAllBtn}>View All</button>
+              </Link>
+            </div>
+            <div className={styles.animeRow}>
+              {topAnime.map((anime) => (
+                <AnimeCard key={anime.mal_id} anime={anime} />
+              ))}
+            </div>
+          </section>
 
-            <section className={styles.animeSection}>
+          <section className={styles.animeSection}>
+            <div className={styles.sectionHeader}>
+              <h2>Current Airing</h2>
+              <Link href="/airing">
+                <button className={styles.viewAllBtn}>View All</button>
+              </Link>
+            </div>
+            <div className={styles.animeRow}>
+              {airingAnime.map((anime) => (
+                <AnimeCard key={anime.mal_id} anime={anime} />
+              ))}
+            </div>
+          </section>
+
+          <section className={styles.animeSection}>
+            <div className={styles.sectionHeader}>
+              <h2>Upcoming</h2>
+              <Link href="/upcoming">
+                <button className={styles.viewAllBtn}>View All</button>
+              </Link>
+            </div>
+            <div className={styles.animeRow}>
+              {upcomingAnime.map((anime) => (
+                <AnimeCard key={anime.mal_id} anime={anime} />
+              ))}
+            </div>
+          </section>
+
+          <section className={styles.animeSection}>
+            <div className={styles.sectionHeader}>
               <h2>Popular Anime</h2>
-              <div className={styles.animeRow}>
-                {popularAnime.map((anime) => (
-                  <AnimeCard key={anime.mal_id} anime={anime} />
-                ))}
-              </div>
-            </section>
-          </div>
+              <Link href="/popular">
+                <button className={styles.viewAllBtn}>View All</button>
+              </Link>
+            </div>
+            <div className={styles.animeRow}>
+              {popularAnime.map((anime) => (
+                <AnimeCard key={anime.mal_id} anime={anime} />
+              ))}
+            </div>
+          </section>
         </div>
-      </Layout>
-    </>
+      </div>
+    </Layout>
   );
 }
