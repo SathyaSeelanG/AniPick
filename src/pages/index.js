@@ -3,7 +3,7 @@ import AnimeCard from "../components/AnimeCard";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/Layout";
 import Link from "next/link";
-
+import { useEffect } from 'react';
 async function fetchWithRetry(url, retries = 3, delay = 1000) {
   for (let i = 0; i < retries; i++) {
     try {
@@ -46,8 +46,39 @@ export default function Home({
   topAnime,
   airingAnime,
 }) {
+  useEffect(() => {
+    const adContainer = document.getElementById('ad-container');
+    if (!adContainer) return;
+  
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.innerHTML = `
+      atOptions = {
+        'key' : 'e74b8f52e5e9ebdc51c679eb786809c9',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    `;
+    adContainer.appendChild(script);
+  
+    const invokeScript = document.createElement('script');
+    invokeScript.type = 'text/javascript';
+    invokeScript.src = '//www.highperformanceformat.com/e74b8f52e5e9ebdc51c679eb786809c9/invoke.js';
+    adContainer.appendChild(invokeScript);
+  
+    return () => {
+      // Clean up
+      adContainer.removeChild(script);
+      adContainer.removeChild(invokeScript);
+    };
+  }, []);
+  
+
   return (
     <Layout title="AniPick | Anime Recommendations">
+    
       <div className={styles.container}>
         <div className={styles.seccontainer}>
           <section className={styles.animeSection}>
@@ -106,6 +137,10 @@ export default function Home({
             </div>
           </section>
         </div>
+      </div>
+      <div className={styles.adContainer}>
+      <h1>ADD</h1>
+        <div id="ad-container"></div>
       </div>
     </Layout>
   );
