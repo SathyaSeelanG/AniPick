@@ -79,6 +79,8 @@ export default function Home({
   return (
     <Layout title="AniPick | Anime Recommendations">
     <meta name="google-adsense-account" content="ca-pub-7527733954310455"></meta>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7527733954310455"
+     crossorigin="anonymous"></script>
       <div className={styles.container}>
         <div className={styles.seccontainer}>
           <section className={styles.animeSection}>
