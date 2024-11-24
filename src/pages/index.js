@@ -78,7 +78,7 @@ export default function Home({
 
   return (
     <Layout title="AniPick | Anime Recommendations">
-    
+    <meta name="google-adsense-account" content="ca-pub-7527733954310455"></meta>
       <div className={styles.container}>
         <div className={styles.seccontainer}>
           <section className={styles.animeSection}>
