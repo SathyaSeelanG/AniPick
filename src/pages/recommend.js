@@ -1,117 +1,118 @@
-import React, { useState, useEffect } from "react";
-import AnimeCard from "../components/AnimeCard"; // Assuming you have an AnimeCard component
-import styles from "../styles/AnimeRecommendation.module.css";
-import Layout from "../components/Layout";
+import { useState } from 'react';
+import Layout from '../components/Layout';
+import styles from '../styles/Recommend.module.css';
+import AnimeCard from '../components/AnimeCard';
+import { FaSearch, FaRandom, FaHeart, FaStar } from 'react-icons/fa';
 
-const AnimeRecommendation = () => {
-  // Predefined list of genres and their corresponding Jikan genre IDs
-  const genreIds = {
-    Action: 1,
-    Adventure: 2,
-    Comedy: 4,
-    Drama: 8,
-    Fantasy: 10,
-    Isekai: 12,
-    Romance: 22,
-    SciFi: 24,
-    Mystery: 28,
-    SliceOfLife: 36,
-  };
+export default function Recommend() {
+    const [selectedGenres, setSelectedGenres] = useState([]);
+    const [recommendations, setRecommendations] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-  const [genres, setGenres] = useState(Object.keys(genreIds)); // Set genre keys as options
-  const [genre, setGenre] = useState(""); // Default to empty genre
-  const [animeList, setAnimeList] = useState([]);
-  const [displayedAnimes, setDisplayedAnimes] = useState([]);
-  const [error, setError] = useState(null);
+    const genres = [
+        { id: 1, name: "Action" }, { id: 2, name: "Adventure" },
+        { id: 4, name: "Comedy" }, { id: 8, name: "Drama" },
+        { id: 10, name: "Fantasy" }, { id: 7, name: "Mystery" },
+        { id: 22, name: "Romance" }, { id: 24, name: "Sci-Fi" },
+        { id: 36, name: "Slice of Life" }, { id: 37, name: "Supernatural" },
+        { id: 41, name: "Thriller" }, { id: 23, name: "School" }
+    ];
 
-  // Function to fetch anime recommendations based on genre
-  const fetchAnimeRecommendations = async (genreId) => {
-    try {
-      const response = await fetch(
-        `https://api.jikan.moe/v4/anime?genres=${genreId}`
-      );
-      const data = await response.json();
-      return data.data; // Return the list of anime for the selected genre
-    } catch (error) {
-      setError("Failed to fetch anime recommendations.");
-      console.error(error);
-      return [];
-    }
-  };
+    const toggleGenre = (genreId) => {
+        setSelectedGenres(prev => 
+            prev.includes(genreId)
+                ? prev.filter(id => id !== genreId)
+                : [...prev, genreId]
+        );
+    };
 
-  // Fetch anime list when genre changes
-  useEffect(() => {
-    if (genre) {
-      const selectedGenreId = genreIds[genre]; // Get the genre ID based on the selected genre name
-      if (selectedGenreId) {
-        fetchAnimeRecommendations(selectedGenreId)
-          .then((animes) => {
-            setAnimeList(animes);
-            setDisplayedAnimes(getRandomAnimes(animes, 2)); // Display 2 random animes initially
-          })
-          .catch((err) => setError(err.message));
-      }
-    }
-  }, [genre]);
+    const getRecommendations = async () => {
+        if (selectedGenres.length === 0) {
+            alert('Please select at least one genre');
+            return;
+        }
 
-  // Function to select random anime from the list
-  const getRandomAnimes = (animeList, count) => {
-    const shuffledAnimes = animeList.sort(() => 0.5 - Math.random());
-    return shuffledAnimes.slice(0, count);
-  };
+        setLoading(true);
+        try {
+            const genreString = selectedGenres.join(',');
+            const response = await fetch(`https://api.jikan.moe/v4/anime?genres=${genreString}&order_by=score&sort=desc&limit=10`);
+            const data = await response.json();
+            setRecommendations(data.data);
+        } catch (error) {
+            console.error('Error fetching recommendations:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  // Handle the "Recommend Another" button click
-  const recommendAnother = () => {
-    setDisplayedAnimes(getRandomAnimes(animeList, 2)); // Select 2 more random animes
-  };
+    return (
+        <Layout title="Anime Recommendations | AniPick">
+            <div className={styles.recommendPage}>
+                <div className={styles.heroSection}>
+                    <div className={styles.heroContent}>
+                        <h1>Discover Your Next Favorite Anime</h1>
+                        <p>Select your preferred genres and let us recommend the perfect anime for you</p>
+                    </div>
+                </div>
 
-  return (
-    <>
-      <Layout>
-        <div className={styles.recommendationContainer}>
-          <h2>Anime Recommendation Based on Genre</h2>
+                <div className={styles.mainContent}>
+                    <div className={styles.genreSection}>
+                        <h2>Select Genres <FaHeart className={styles.sectionIcon} /></h2>
+                        <div className={styles.genreGrid}>
+                            {genres.map(genre => (
+                                <button
+                                    key={genre.id}
+                                    className={`${styles.genreButton} ${
+                                        selectedGenres.includes(genre.id) ? styles.selected : ''
+                                    }`}
+                                    onClick={() => toggleGenre(genre.id)}
+                                >
+                                    {genre.name}
+                                </button>
+                            ))}
+                        </div>
+                        <div className={styles.actionButtons}>
+                            <button 
+                                className={styles.findButton}
+                                onClick={getRecommendations}
+                                disabled={loading}
+                            >
+                                <FaSearch /> Find Anime
+                            </button>
+                            <button 
+                                className={styles.randomButton}
+                                onClick={() => {
+                                    const randomGenres = genres
+                                        .sort(() => 0.5 - Math.random())
+                                        .slice(0, 3)
+                                        .map(g => g.id);
+                                    setSelectedGenres(randomGenres);
+                                }}
+                            >
+                                <FaRandom /> Random Genres
+                            </button>
+                        </div>
+                    </div>
 
-          {/* Genre Selection */}
-          <div className={styles.filterSection}>
-            <label htmlFor="genre">Select Genre:</label>
-            <select
-              id="genre"
-              value={genre}
-              onChange={(e) => setGenre(e.target.value)}
-            >
-              <option value="">--Select Genre--</option>
-              {genres.map((genreName) => (
-                <option key={genreName} value={genreName}>
-                  {genreName}
-                </option>
-              ))}
-            </select>
-          </div>
+                    {loading && (
+                        <div className={styles.loadingContainer}>
+                            <div className={styles.loader}></div>
+                            <p>Finding perfect anime for you...</p>
+                        </div>
+                    )}
 
-          {/* Displaying Error */}
-          {error && <p>{error}</p>}
-
-          {/* Displaying Recommended Animes */}
-          <div className={styles.resultsContainer}>
-            {displayedAnimes.length > 0 ? (
-              <div className={styles.resultsGrid}>
-                {displayedAnimes.map((anime) => (
-                  <AnimeCard key={anime.mal_id} anime={anime} />
-                ))}
-              </div>
-            ) : (
-              <p>No recommendations found. Try changing your filters!</p>
-            )}
-          </div>
-
-          {/* Recommend Another Button */}
-          <button className={styles.recommendButton} onClick={recommendAnother}>
-            Recommend Another
-          </button>
-        </div>
-      </Layout>
-    </>
-  );
-};
-
-export default AnimeRecommendation;
+                    {recommendations.length > 0 && !loading && (
+                        <div className={styles.recommendationsSection}>
+                            <h2>Recommended Anime <FaStar className={styles.sectionIcon} /></h2>
+                            <div className={styles.animeGrid}>
+                                {recommendations.map(anime => (
+                                    <AnimeCard key={anime.mal_id} anime={anime} />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </Layout>
+    );
+}

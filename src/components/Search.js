@@ -1,85 +1,46 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
-import Link from "next/link";
-import { IoMdClose } from "react-icons/io"; // Cancel icon from react-icons
-import styles from "../styles/Search.module.css";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import styles from '../styles/Search.module.css';
+import { FaSearch } from 'react-icons/fa';
 
 const Search = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [animeResults, setAnimeResults] = useState([]);
-  const [isHovered, setIsHovered] = useState(false); // Track mouse hover
-  const router = useRouter();
+    const [searchTerm, setSearchTerm] = useState('');
+    const router = useRouter();
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (searchQuery.trim() !== "") {
-      const searchUrl = `https://api.jikan.moe/v4/anime?q=${searchQuery}&limit=5`; // Get 5 results
-      try {
-        const response = await axios.get(searchUrl);
-        console.log("Search response:", response.data); // Debugging the response
-        setAnimeResults(response.data.data); // Store results for rendering
-      } catch (error) {
-        console.error("Error fetching anime:", error);
-      }
-    } else {
-      setAnimeResults([]); // Clear results if search query is empty
-    }
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            try {
+                const response = await fetch(`https://api.jikan.moe/v4/anime?q=${searchTerm}&sfw`);
+                const data = await response.json();
+                
+                // Store the search results in localStorage
+                localStorage.setItem('searchResults', JSON.stringify(data.data));
+                
+                // Navigate to search results page
+                router.push(`/search?q=${encodeURIComponent(searchTerm)}`);
+            } catch (error) {
+                console.error('Search error:', error);
+            }
+        }
+    };
 
-  const handleClearSearch = () => {
-    setSearchQuery("");
-    setAnimeResults([]); // Clear results when search is cleared
-  };
-
-  useEffect(() => {
-    const handleMouseMove = () => setIsHovered(false);
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  return (
-    <div className={styles.searchContainer}>
-      <form onSubmit={handleSearch} className={styles.searchForm}>
-        <div className={styles.inputWrapper}>
-          <input
-            type="text"
-            placeholder="Search Anime..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={styles.searchInput}
-          />
-          {searchQuery && (
-            <IoMdClose
-              className={styles.clearIcon}
-              onClick={handleClearSearch} // Clear search on click
-            />
-          )}
-        </div>
-        <button type="submit" className={styles.searchButton}>
-          Search
-        </button>
-      </form>
-
-      {animeResults.length > 0 && searchQuery && (
-        <div className={styles.resultsContainer}>
-          <ul className={styles.resultsList}>
-            {animeResults.map((anime) => (
-              <li key={anime.mal_id} className={styles.resultItem}>
-                <Link
-                  href={`/anime/${anime.mal_id}/${encodeURIComponent(
-                    anime.title_english || anime.title
-                  )}`}
-                >
-                  <h4>{anime.title_english || anime.title}</h4>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+    return (
+        <form onSubmit={handleSubmit} className={styles.searchForm}>
+            <div className={styles.searchContainer}>
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search anime..."
+                    className={styles.searchInput}
+                />
+                <button type="submit" className={styles.searchButton}>
+                    <FaSearch />
+                </button>
+            </div>
+        </form>
+    );
 };
 
 export default Search;

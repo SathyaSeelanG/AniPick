@@ -4,6 +4,8 @@ import styles from "../styles/Home.module.css";
 import Layout from "../components/Layout";
 import Link from "next/link";
 import { useEffect } from 'react';
+import { FaFire, FaCalendarAlt, FaClock, FaStar, FaArrowRight } from 'react-icons/fa';
+
 async function fetchWithRetry(url, retries = 3, delay = 1000) {
   for (let i = 0; i < retries; i++) {
     try {
@@ -77,72 +79,108 @@ export default function Home({
   
 
   return (
-    <Layout title="AniPick | Anime Recommendations">
-    <meta name="google-adsense-account" content="ca-pub-7527733954310455"></meta>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7527733954310455"
-     crossorigin="anonymous"></script>
-      <div className={styles.container}>
-        <div className={styles.seccontainer}>
-          <section className={styles.animeSection}>
-            <div className={styles.sectionHeader}>
-              <h2>Top of the Week</h2>
-              <Link href="/top-anime">
-                <button className={styles.viewAllBtn}>View All</button>
-              </Link>
-            </div>
-            <div className={styles.animeRow}>
-              {topAnime.map((anime) => (
-                <AnimeCard key={anime.mal_id} anime={anime} />
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.animeSection}>
-            <div className={styles.sectionHeader}>
-              <h2>Current Airing</h2>
-              <Link href="/airing">
-                <button className={styles.viewAllBtn}>View All</button>
-              </Link>
-            </div>
-            <div className={styles.animeRow}>
-              {airingAnime.map((anime) => (
-                <AnimeCard key={anime.mal_id} anime={anime} />
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.animeSection}>
-            <div className={styles.sectionHeader}>
-              <h2>Upcoming</h2>
-              <Link href="/upcoming">
-                <button className={styles.viewAllBtn}>View All</button>
-              </Link>
-            </div>
-            <div className={styles.animeRow}>
-              {upcomingAnime.map((anime) => (
-                <AnimeCard key={anime.mal_id} anime={anime} />
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.animeSection}>
-            <div className={styles.sectionHeader}>
-              <h2>Popular Anime</h2>
-              <Link href="/popular">
-                <button className={styles.viewAllBtn}>View All</button>
-              </Link>
-            </div>
-            <div className={styles.animeRow}>
-              {popularAnime.map((anime) => (
-                <AnimeCard key={anime.mal_id} anime={anime} />
-              ))}
-            </div>
-          </section>
+    <Layout title="AniPick | Discover Your Next Favorite Anime">
+      <meta name="google-adsense-account" content="ca-pub-7527733954310455"></meta>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7527733954310455"
+       crossorigin="anonymous"></script>
+      
+      {/* Hero Section */}
+      <div className={styles.hero}>
+        <div className={styles.heroOverlay}></div>
+        <div className={styles.heroContent}>
+          <h1>Discover Amazing Anime</h1>
+          <p>Your personal guide to the best anime recommendations</p>
+          <div className={styles.heroButtons}>
+            <Link href="/recommend" className={styles.ctaButton}>
+              Get Recommendations
+            </Link>
+            <Link href="/popular" className={styles.secondaryButton}>
+              Browse Popular <FaArrowRight className={styles.buttonIcon} />
+            </Link>
+          </div>
         </div>
       </div>
-      <div className={styles.adContainer}>
-      <h1>ADD</h1>
-        <div id="ad-container"></div>
+
+      <div className={styles.mainContent}>
+        <div className={styles.container}>
+          <div className={styles.seccontainer}>
+            <section className={styles.animeSection}>
+              <div className={styles.sectionHeader}>
+                <div className={styles.headerLeft}>
+                  <FaFire className={styles.sectionIcon} />
+                  <h2>Top of the Week</h2>
+                </div>
+                <Link href="/top-anime" className={styles.viewAllLink}>
+                  <span>View All</span>
+                  <FaArrowRight className={styles.viewAllIcon} />
+                </Link>
+              </div>
+              <div className={styles.animeGrid}>
+                {topAnime.map((anime) => (
+                  <AnimeCard key={anime.mal_id} anime={anime} />
+                ))}
+              </div>
+            </section>
+
+            <section className={styles.animeSection}>
+              <div className={styles.sectionHeader}>
+                <div className={styles.headerLeft}>
+                  <FaClock className={styles.sectionIcon} />
+                  <h2>Currently Airing</h2>
+                </div>
+                <Link href="/airing" className={styles.viewAllLink}>
+                  <span>View All</span>
+                  <FaArrowRight className={styles.viewAllIcon} />
+                </Link>
+              </div>
+              <div className={styles.animeGrid}>
+                {airingAnime.map((anime) => (
+                  <AnimeCard key={anime.mal_id} anime={anime} />
+                ))}
+              </div>
+            </section>
+
+            <div className={styles.adContainer}>
+              <div id="ad-container"></div>
+            </div>
+
+            <section className={styles.animeSection}>
+              <div className={styles.sectionHeader}>
+                <div className={styles.headerLeft}>
+                  <FaCalendarAlt className={styles.sectionIcon} />
+                  <h2>Upcoming Releases</h2>
+                </div>
+                <Link href="/upcoming" className={styles.viewAllLink}>
+                  <span>View All</span>
+                  <FaArrowRight className={styles.viewAllIcon} />
+                </Link>
+              </div>
+              <div className={styles.animeGrid}>
+                {upcomingAnime.map((anime) => (
+                  <AnimeCard key={anime.mal_id} anime={anime} />
+                ))}
+              </div>
+            </section>
+
+            <section className={styles.animeSection}>
+              <div className={styles.sectionHeader}>
+                <div className={styles.headerLeft}>
+                  <FaStar className={styles.sectionIcon} />
+                  <h2>Most Popular</h2>
+                </div>
+                <Link href="/popular" className={styles.viewAllLink}>
+                  <span>View All</span>
+                  <FaArrowRight className={styles.viewAllIcon} />
+                </Link>
+              </div>
+              <div className={styles.animeGrid}>
+                {popularAnime.map((anime) => (
+                  <AnimeCard key={anime.mal_id} anime={anime} />
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
     </Layout>
   );
