@@ -19,6 +19,7 @@ import Link from "next/link";
 import Search from "./Search";
 import styles from "../styles/Header.module.css";
 import { FaFire, FaStar, FaCalendarAlt, FaCompass, FaBars, FaTimes } from 'react-icons/fa';
+import Image from 'next/image';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,10 +32,13 @@ const Header = () => {
         <header className={styles.header}>
             <div className={styles.headerContent}>
                 <Link href="/" className={styles.logo}>
-                    <img 
+                    <Image 
                         src="https://raw.githubusercontent.com/SathyaSeelanG/assets/refs/heads/main/Projects/AniPick/AniPick_logo.png" 
                         alt="AniPick Logo" 
                         className={styles.logoImage}
+                        width={35}
+                        height={35}
+                        priority
                     />
                     <span className={styles.logoText}>AniPick</span>
                 </Link>

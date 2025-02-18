@@ -42,7 +42,7 @@ const SearchResults = () => {
                 <div className={styles.pageHeroContent}>
                     <FaSearch className={styles.pageHeroIcon} />
                     <h1>Search Results</h1>
-                    <p>Found {results.length} results for "{q}"</p>
+                    <p>Found {results.length} results for &quot;{q}&quot;</p>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@ const SearchResults = () => {
                         </div>
                     ) : (
                         <div className={styles.noResults}>
-                            <p>No results found for "{q}"</p>
+                            <p>No results found for &quot;{q}&quot;</p>
                         </div>
                     )}
                 </div>

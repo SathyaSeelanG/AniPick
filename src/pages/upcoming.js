@@ -61,7 +61,7 @@ const UpcomingAnime = ({ upcomingAnime }) => {
                 <div className={styles.pageHeroContent}>
                     <FaCalendarAlt className={styles.pageHeroIcon} />
                     <h1>Upcoming Anime</h1>
-                    <p>Discover what's coming next in the world of anime</p>
+                    <p>Discover what&apos;s coming next in the world of anime</p>
                 </div>
             </div>
 
