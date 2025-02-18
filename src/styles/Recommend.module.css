@@ -1,0 +1,297 @@
+.recommendPage {
+    min-height: 100vh;
+    background: #0a0a1f;
+}
+
+.heroSection {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heroSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(108, 92, 231, 0.1) 0%, transparent 50%);
+}
+
+.heroContent {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    padding: 0 1rem;
+}
+
+.heroContent h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: #fff;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+    line-height: 1.2;
+}
+
+.heroContent p {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.mainContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem 2rem;
+}
+
+.genreSection {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-top: -2rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.genreSection h2 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sectionIcon {
+    color: #ff6b6b;
+}
+
+.genreGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.genreButton {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.genreButton:hover {
+    background: rgba(255, 107, 107, 0.1);
+    transform: translateY(-2px);
+}
+
+.genreButton.selected {
+    background: #ff6b6b;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.actionButtons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.findButton, .randomButton {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.findButton {
+    background: #ff6b6b;
+    color: white;
+    flex: 2;
+}
+
+.findButton:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.randomButton {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.randomButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.loadingContainer {
+    text-align: center;
+    padding: 3rem;
+    color: white;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 107, 107, 0.3);
+    border-radius: 50%;
+    border-top-color: #ff6b6b;
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto 1rem;
+}
+
+.recommendationsSection {
+    margin-top: 3rem;
+}
+
+.recommendationsSection h2 {
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.animeGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .heroSection {
+        padding: 2rem 1rem;
+        min-height: 180px;
+    }
+
+    .heroContent {
+        padding: 0;
+    }
+
+    .genreSection {
+        padding: 1.2rem;
+        margin-top: -1.5rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .genreSection h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .genreGrid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.8rem;
+    }
+
+    .genreButton {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .actionButtons {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .findButton, .randomButton {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .heroSection {
+        padding: 2rem 1rem;
+        min-height: 160px;
+    }
+
+    .genreSection {
+        padding: 1rem;
+        margin-top: -1rem;
+    }
+
+    .genreGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
+    }
+
+    .genreButton {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .mainContent {
+        padding: 0 0.5rem 1.5rem;
+    }
+
+    .recommendationsSection {
+        margin-top: 2rem;
+    }
+
+    .recommendationsSection h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .animeGrid {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .heroContent h1 {
+        font-size: 1.5rem;
+    }
+
+    .heroContent p {
+        font-size: 0.85rem;
+    }
+
+    .genreGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .genreButton {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+} 

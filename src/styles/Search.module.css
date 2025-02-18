@@ -1,74 +1,72 @@
 /* Search.module.css */
 .searchContainer {
-    position: relative;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .searchForm {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 50px;
-    padding: 0.5rem 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .inputWrapper {
-    position: relative;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.searchForm {
+    width: 100%;
+    max-width: 500px;
+}
+
+.searchInput {
     flex: 1;
-  }
-  
-  .searchInput {
-    width: 75%;
-    padding: 10px 15px;
-    padding-right: 40px; /* Added space for the clear icon */
-    font-size: 1rem;
+    padding: 0.75rem 1.25rem;
     border: none;
     border-radius: 25px;
-    background-color: rgba(235, 209, 209, 0.8);
-    color: #333;
-    transition: width 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
-  }
-  
-  .searchInput:focus {
-    outline: none;
-    background-color: white;
-    width: 80%;
-    padding: 10px 20px;
-  }
-  
-  .searchButton {
-    background-color: #ff4081;
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     font-size: 1rem;
-    padding: 0.8rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px #ff6b6b;
+}
+
+.searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.searchButton {
+    background: #ff6b6b;
     border: none;
-    border-radius: 50px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .searchButton:hover {
-    background-color: #ff5b7f;
-  }
-  
-  .clearIcon {
-    position: absolute;
-    top: 50%;
-    right: 15px; /* Adjusted position to ensure it's inside the input */
-    transform: translateY(-50%);
-    font-size: 1.5rem;
-    color: #ff4081;
-    cursor: pointer;
-  }
-  
-  .clearIcon:hover {
-    color: #ff5b7f;
-  }
-/* Search.module.css */
+    transition: all 0.3s ease;
+}
+
+.searchButton:hover {
+    background: #ff5252;
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .searchForm {
+        width: 100%;
+    }
+    
+    .searchInput {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+    
+    .searchButton {
+        width: 35px;
+        height: 35px;
+    }
+}
+
 .resultsContainer {
     position: absolute;
     top: 100%;
@@ -81,38 +79,38 @@
     max-height: 300px;
     overflow-y: auto;
     width: 100%;
-  }
-  
-  .resultsList {
+}
+
+.resultsList {
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-  
-  .resultItem {
+}
+
+.resultItem {
     padding: 1rem;
     border-bottom: 1px solid #eee;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .resultItem:hover {
+}
+
+.resultItem:hover {
     background-color: #f7f7f7;
-  }
-  
-  .resultItem h4 {
+}
+
+.resultItem h4 {
     margin: 0;
     font-size: 1.2rem;
     font-weight: normal;
     color: #333;
-  }
-  
-  /* Remove underline from links */
-  .resultsList a {
+}
+
+/* Remove underline from links */
+.resultsList a {
     text-decoration: none; /* Remove underline */
-  }
-  
-  .resultsList a:hover {
+}
+
+.resultsList a:hover {
     text-decoration: none; /* Ensure underline is removed on hover */
-  }
+}
   
