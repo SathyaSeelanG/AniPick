@@ -1,19 +1,3 @@
-// import Search from "./Search"; // Import the Search component
-// import styles from "../styles/Header.module.css";
-
-// const Header = () => {
-//   return (
-//     <header className={styles.header}>
-//       <h1 className={styles.heading}>AniPick</h1>
-//       <h1 className={styles.heading}>Reomcend</h1>
-//       <div className={styles.searchWrapper}>
-//         <Search /> {/* Include the Search component here */}
-//       </div>
-//     </header>
-//   );
-// };
-
-// export default Header;
 import { useState } from 'react';
 import Link from "next/link";
 import Search from "./Search";
@@ -23,22 +7,29 @@ import Image from 'next/image';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [imageError, setImageError] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const logoUrl = "https://raw.githubusercontent.com/SathyaSeelanG/assets/main/Projects/AniPick/AniPick_logo.png";
+    // Fallback logo URL if needed
+    const fallbackLogoUrl = "/logo.png"; // Make sure to add a local logo file in your public folder
 
     return (
         <header className={styles.header}>
             <div className={styles.headerContent}>
                 <Link href="/" className={styles.logo}>
                     <Image 
-                        src="https://raw.githubusercontent.com/SathyaSeelanG/assets/refs/heads/main/Projects/AniPick/AniPick_logo.png" 
+                        src={imageError ? fallbackLogoUrl : logoUrl}
                         alt="AniPick Logo" 
                         className={styles.logoImage}
                         width={35}
                         height={35}
                         priority
+                        onError={() => setImageError(true)}
+                        unoptimized={true}
                     />
                     <span className={styles.logoText}>AniPick</span>
                 </Link>
